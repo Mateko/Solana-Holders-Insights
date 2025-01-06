@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="main-header">Enter Mint Address</h1>
+
+<!-- Display an error alert if 'error' is set -->
+{% if error %}
+<div class="alert alert-danger" role="alert">
+    <strong>Error:</strong> {{ error }}
+</div>
+{% endif %}
+<form action="/top-holders" method="post" class="form-inline">
+    <div class="form-group">
+        <label for="ca" class="sr-only">Mint Address:</label>
+        <input
+            type="text"
+            id="ca"
+            name="ca"
+            class="form-control"
+            placeholder="Enter mint address here..."
+            required
+        >
+        <button type="submit" class="btn btn-submit">Submit</button>
+    </div>
+</form>
+{% endblock %}

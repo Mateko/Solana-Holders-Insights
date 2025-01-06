@@ -1,12 +1,4 @@
-# FastAPI boilerplate
+# Solana Holders Insights
 ___
 
-Boilerplate using FastAPI, SQLAlchemy, Jinja2, tailwindcss, tailwind-elements
-## Starting server
-___
-
-```
-pip install -r requirements.txt
- 
-uvicorn main:app --reload
-```
+An app that provides insights into top holders to not let u get rugged!

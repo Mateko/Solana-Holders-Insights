@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="main-header">Top Holders Token Portfolio</h1>
+
+<div class="center-div">
+    <div class="sections-container">
+        <div class="section">
+            <div class="section-header">CA</div>
+            <div class="section-variable">{{ ca }}</div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">Token Name / Ticker</div>
+            <div class="section-variable">{{ token_info.content.metadata.name }} / {{ token_info.content.metadata.symbol }}</div>
+        </div>
+
+        {% set supply = token_info.token_info.supply %}
+        {% set decimal_places = token_info.token_info.decimals %}
+        {% set divisor = 10 ** decimal_places %}
+
+        <div class="section">
+            <div class="section-header">Supply</div>
+            <div class="section-variable">{{ (supply / divisor) | round(2) }}</div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">Price</div>
+        </div>
+        <div class="section">
+
+            <div class="section-header">Frozen</div>
+            <div class="section-variable">{{ token_info.ownership.frozen }}</div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">Mutable</div>
+            <div class="section-variable">{{ token_info.mutable }}</div>
+        </div>
+    </div>
+</div>
+
+<h1 class="main-header">Some coin prices are manipulated DYOR</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Owner</th>
+            <th>Token Name</th>
+            <th>Ticker</th>
+            <th>Balance</th>
+            <th>Token Price</th>
+            <th>Currency</th>
+            <th>Total Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for owner, data in top_holders_fungibles.items() %}
+            <tr>
+                <td rowspan="{{ data.tokens|length }}">Holder No.{{loop.index}} {{ owner }}</td> <!-- Merge rows for each owner -->
+                {% for token in data.tokens %}
+                    <td>{{ token[0] }}</td>
+                    <td>{{ token[1] }}</td>
+                    <td>{{ token[2] | round(2) }}</td>
+                    <td>{{ token[3] }}</td>
+                    <td>{{ token[4] }}</td>
+                </tr>
+                {% endfor %}
+            <tr>
+                <td colspan="6"><strong>Total Token Price:</strong></td>
+                <td><strong>{{ data.total_price }}</strong></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
